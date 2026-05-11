@@ -1,8 +1,9 @@
 :root {
   color-scheme: light;
   font-family: Inter, system-ui, sans-serif;
-  background: #f3f4f6;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #111827;
+  min-height: 100vh;
 }
 
 * {
@@ -12,15 +13,17 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: inherit;
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
 .app-shell {
-  max-width: 780px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -28,25 +31,191 @@ input {
 header {
   margin-bottom: 2rem;
   text-align: center;
+  color: white;
 }
 
 header h1 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 2.75rem);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 header p {
   margin: 0.5rem auto 0;
-  color: #4b5563;
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
 }
 
 .card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  padding: 1.3rem;
-  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.05);
-  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #374151;
+}
+
+.post-form,
+.edit-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.post-form input,
+.post-form textarea,
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.post-form input:focus,
+.post-form textarea:focus,
+.edit-form input:focus,
+.edit-form textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-edit,
+.btn-delete {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.btn-edit {
+  background: #10b981;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #059669;
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.post-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.post-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.post-item strong {
+  display: block;
+  font-size: 1.1rem;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.post-item p {
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.post-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error button {
+  background: #b91c1c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .todo-form {
@@ -72,8 +241,7 @@ header p {
   cursor: pointer;
 }
 
-.todo-list,
-.post-list {
+.todo-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -90,18 +258,6 @@ header p {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
   border-radius: 0.9rem;
-}
-
-.post-list li {
-  padding: 1rem;
-  background: #f8fafc;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.9rem;
-}
-
-.post-list li strong {
-  display: block;
-  margin-bottom: 0.5rem;
 }
 
 .todo-list li.completed span {
@@ -125,6 +281,3 @@ header p {
   background: #e0f2fe;
 }
 
-.error {
-  color: #b91c1c;
-}
